@@ -18,6 +18,7 @@
 		E93044EA212B704500CD31EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E93044E0212B704400CD31EF /* Main.storyboard */; };
 		E93044EB212B704500CD31EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93044E2212B704400CD31EF /* AppDelegate.swift */; };
 		E93044EF212B723C00CD31EF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93044EE212B723C00CD31EF /* SearchViewController.swift */; };
+		E93044F2212B733A00CD31EF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93044F1212B733A00CD31EF /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		E93044E2212B704400CD31EF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E93044E3212B704400CD31EF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E93044EE212B723C00CD31EF /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		E93044F1212B733A00CD31EF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		F70DF565358C97599C6F42D5 /* Pods_SearchMoviesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SearchMoviesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				E93044DC212B704400CD31EF /* Common */,
+				E93044F0212B732F00CD31EF /* CoreData */,
 				E93044E4212B704400CD31EF /* Models */,
 				E93044E5212B704500CD31EF /* ViewModels */,
 				E93044E6212B704500CD31EF /* Views */,
@@ -198,6 +201,14 @@
 				E93044EE212B723C00CD31EF /* SearchViewController.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E93044F0212B732F00CD31EF /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E93044F1212B733A00CD31EF /* CoreDataStack.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,6 +434,7 @@
 				E93044EF212B723C00CD31EF /* SearchViewController.swift in Sources */,
 				E93044EB212B704500CD31EF /* AppDelegate.swift in Sources */,
 				E93044AC212B660500CD31EF /* SearchMovies.xcdatamodeld in Sources */,
+				E93044F2212B733A00CD31EF /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,7 +611,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N7B2B4L8G9;
 				INFOPLIST_FILE = SearchMovies/Common/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -619,7 +631,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N7B2B4L8G9;
 				INFOPLIST_FILE = SearchMovies/Common/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
