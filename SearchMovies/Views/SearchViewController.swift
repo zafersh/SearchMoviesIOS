@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SearchViewController.swift
 //  SearchMovies
 //
 //  Created by Thafer Shahin on 8/21/18.
@@ -8,7 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+
+/// UIViewController for search view which is the root view for this app.
+class SearchViewController: UIViewController {
+    
+    // MARK: - SearchViewController
+    
+    
+    // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
