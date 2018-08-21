@@ -14,6 +14,14 @@ class SearchViewController: UIViewController {
     
     // MARK: - SearchViewController
     
+    /// IBOutlet to search bar.
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    /// IBOutlet to table view used to show search suggestions and results.
+    @IBOutlet weak var tableView: UITableView!
+    
+    /// Associated view model.
+    let viewModel = SearchViewModel()
     
     // MARK: - UIViewController
 

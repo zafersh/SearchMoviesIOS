@@ -19,6 +19,8 @@
 		E93044EB212B704500CD31EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93044E2212B704400CD31EF /* AppDelegate.swift */; };
 		E93044EF212B723C00CD31EF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93044EE212B723C00CD31EF /* SearchViewController.swift */; };
 		E93044F2212B733A00CD31EF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93044F1212B733A00CD31EF /* CoreDataStack.swift */; };
+		E9E3D7FD212B862F0063A563 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D7FC212B862F0063A563 /* SearchViewModel.swift */; };
+		E9E3D7FF212B8D180063A563 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D7FE212B8D180063A563 /* MovieTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		E93044E3212B704400CD31EF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E93044EE212B723C00CD31EF /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E93044F1212B733A00CD31EF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		E9E3D7FC212B862F0063A563 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		E9E3D7FE212B8D180063A563 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		F70DF565358C97599C6F42D5 /* Pods_SearchMoviesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SearchMoviesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -191,6 +195,7 @@
 		E93044E5212B704500CD31EF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				E9E3D7FC212B862F0063A563 /* SearchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				E93044EE212B723C00CD31EF /* SearchViewController.swift */,
+				E9E3D7FE212B8D180063A563 /* MovieTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -432,6 +438,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E93044EF212B723C00CD31EF /* SearchViewController.swift in Sources */,
+				E9E3D7FD212B862F0063A563 /* SearchViewModel.swift in Sources */,
+				E9E3D7FF212B8D180063A563 /* MovieTableViewCell.swift in Sources */,
 				E93044EB212B704500CD31EF /* AppDelegate.swift in Sources */,
 				E93044AC212B660500CD31EF /* SearchMovies.xcdatamodeld in Sources */,
 				E93044F2212B733A00CD31EF /* CoreDataStack.swift in Sources */,
