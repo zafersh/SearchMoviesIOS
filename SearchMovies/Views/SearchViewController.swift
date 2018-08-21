@@ -10,6 +10,7 @@ import UIKit
 import Moya
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 /// UIViewController for search view which is the root view for this app.
 class SearchViewController: UIViewController {
@@ -67,6 +68,7 @@ class SearchViewController: UIViewController {
             cell.nameLabel.text = movie.name
             cell.dateLabel.text = DateFormatter.formattedMedium(date: movie.releaseDate)
             cell.overviewLabel.text = movie.overview
+            cell.movieImageView.kf.setImage(with: movie.posterUrlFor(size: .width92))
         }.disposed(by: disposeBag)
         
     }

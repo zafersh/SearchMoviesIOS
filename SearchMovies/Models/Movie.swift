@@ -32,3 +32,32 @@ struct Movie : Codable {
     }
     
 }
+
+// MARK: - Poster Size
+
+/// Enum for possible images sized at the server.
+///
+/// - w92: <#w92 description#>
+/// - w185: <#w185 description#>
+/// - w500: <#w500 description#>
+/// - w780: <#w780 description#>
+enum ImageSize : String {
+    case width92 = "w92"
+    case width185 = "w185"
+    case width500 = "w500"
+    case width780 = "w780"
+}
+
+extension Movie {
+    
+    /// Creates URL for this movie poster according to specified size.
+    ///
+    /// - Parameter size: <#size description#>
+    /// - Returns: <#return value description#>
+    func posterUrlFor(size : ImageSize) -> URL? {
+        guard let poster = self.poster else {return nil}
+        let urlString = "\(APIService.imagesBaseUrl)\(size.rawValue)\(poster)"
+        return URL(string: urlString)
+    }
+    
+}

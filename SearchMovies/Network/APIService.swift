@@ -18,6 +18,8 @@ enum APIService {
     case search(keyword : String)
 }
 
+// MARK: - TargetType
+
 // Search movies API configurations.
 extension APIService : TargetType {
     var baseURL: URL {
