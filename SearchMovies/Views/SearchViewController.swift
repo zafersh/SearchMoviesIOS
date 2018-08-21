@@ -65,7 +65,7 @@ class SearchViewController: UIViewController {
         
         self.viewModel.movies.asObservable().bind(to: tableView.rx.items(cellIdentifier: String(describing: MovieTableViewCell.self), cellType: MovieTableViewCell.self)) { row, movie, cell in
             cell.nameLabel.text = movie.name
-            cell.dateLabel.text = movie.releaseDate.description
+            cell.dateLabel.text = DateFormatter.formattedMedium(date: movie.releaseDate)
             cell.overviewLabel.text = movie.overview
         }.disposed(by: disposeBag)
         
