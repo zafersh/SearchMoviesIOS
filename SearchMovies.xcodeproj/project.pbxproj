@@ -29,6 +29,7 @@
 		E9E3D80D212D88410063A563 /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D80C212D88410063A563 /* Suggestion.swift */; };
 		E9E3D80F212DA1400063A563 /* SuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D80E212DA1400063A563 /* SuggestionTableViewCell.swift */; };
 		E9E3D811212DA3680063A563 /* SearchSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D810212DA3680063A563 /* SearchSectionModel.swift */; };
+		E9E3D815212DE39E0063A563 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D814212DE39E0063A563 /* Error.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		E9E3D80C212D88410063A563 /* Suggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
 		E9E3D80E212DA1400063A563 /* SuggestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		E9E3D810212DA3680063A563 /* SearchSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSectionModel.swift; sourceTree = "<group>"; };
+		E9E3D814212DE39E0063A563 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		F70DF565358C97599C6F42D5 /* Pods_SearchMoviesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SearchMoviesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -199,6 +201,7 @@
 				E93044E0212B704400CD31EF /* Main.storyboard */,
 				E93044E2212B704400CD31EF /* AppDelegate.swift */,
 				E93044E3212B704400CD31EF /* Info.plist */,
+				E9E3D814212DE39E0063A563 /* Error.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				E93044F2212B733A00CD31EF /* CoreDataStack.swift in Sources */,
 				E9E3D806212BCC460063A563 /* APIResponse.swift in Sources */,
 				E9E3D80D212D88410063A563 /* Suggestion.swift in Sources */,
+				E9E3D815212DE39E0063A563 /* Error.swift in Sources */,
 				E9E3D80F212DA1400063A563 /* SuggestionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

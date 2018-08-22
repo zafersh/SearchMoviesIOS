@@ -33,6 +33,10 @@ final class SearchViewModel {
     /// Models to be displayed at table view.
     private(set) var tableRows = BehaviorRelay<[SearchSectionModel]>(value: [SearchSectionModel]())
     
+    /// Reference to last occured error.
+    /// Search view controller will show an alert when error occurs.
+    private(set) var error = BehaviorRelay<Error?>(value: nil)
+    
     /// Default constructor for this view model
     ///
     /// - Parameter provider: Provider used to make API calls.
@@ -63,17 +67,30 @@ final class SearchViewModel {
                     
                     if apiResponse.movies.count > 0 {
                         // As the query was success, add it to persistent suggestions.
-                        CoreDataStack.insertSuggestion(keyword: keyword.trimmingCharacters(in: .whitespacesAndNewlines))
+                        CoreDataStack.insertSuggestion(keyword: keyword)
                     } else {
-                        // TODO: Show error in case no results.
+                        // Inform the user that no movie is found.
+                        self.error.accept(Error.movieNotFound)
                     }
                     
                 } catch (let error){
                     print("Error: \(error.localizedDescription)")
+                    // Inform the user of unknown error.
+                    // It is not nice to tell the user that error occured while decoding JSON response or ....
+                    // So a message of unknown error is better.
+                    self.error.accept(Error.unknownError)
                 }
                 
             case .failure(let error):
-                print("Error \(error)")
+                
+                switch error {
+                case .underlying(_, _):
+                    self.error.accept(Error.noInternet)
+                default:
+                    // We can provide specific message or handling for different type of errors here if required.
+                    self.error.accept(Error.unknownError)
+                }
+                
             }
         }
         

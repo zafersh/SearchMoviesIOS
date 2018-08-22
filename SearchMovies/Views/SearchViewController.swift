@@ -68,7 +68,7 @@ class SearchViewController: UIViewController {
             }
             // Hide keyboard.
             self.view.endEditing(true)
-            self.viewModel.searchFor(keyword: keyword)
+            self.viewModel.searchFor(keyword: keyword.trimmingCharacters(in: .whitespacesAndNewlines))
         }).disposed(by: disposeBag)
         
         // Subscribe to search bar begin editing to show persistent suggestions.
@@ -97,6 +97,15 @@ class SearchViewController: UIViewController {
                     self.searchBar.text = suggestion.keyword
                     self.view.endEditing(true)
                 }
+        }).disposed(by: disposeBag)
+        
+        // Show an alert when an error occurs.
+        self.viewModel.error.asDriver().drive(onNext: { (error) in
+            guard error != nil else {return}
+            let alertView = UIAlertController(title: NSLocalizedString("Error", comment: ""), message: error?.localizedError(), preferredStyle: .alert)
+            alertView.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
+            })
+            self.present(alertView, animated: true, completion: nil)
         }).disposed(by: disposeBag)
         
     }
