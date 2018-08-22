@@ -18,7 +18,7 @@ struct Movie : Codable {
     let name : String
     
     /// Movie's release date.
-    let releaseDate : Date
+    let releaseDate : Date?
     
     /// Movie's overview.
     let overview : String?
@@ -29,6 +29,23 @@ struct Movie : Codable {
         case name = "title"
         case releaseDate = "release_date"
         case overview
+    }
+    
+    /// This constructor is required to handle the case when release date is not available.
+    ///
+    /// - Parameter decoder: <#decoder description#>
+    /// - Throws: <#throws value description#>
+    public init(from decoder : Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        poster = try container.decode(String.self, forKey: .poster)
+        overview = try container.decode(String.self, forKey: .overview)
+        do {
+            releaseDate = try container.decode(Date.self, forKey: .releaseDate)
+        } catch {
+            // In case release date is not available.
+            releaseDate = nil
+        }
     }
     
 }

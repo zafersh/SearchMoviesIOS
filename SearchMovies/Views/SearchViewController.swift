@@ -65,8 +65,9 @@ class SearchViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         self.viewModel.movies.asObservable().bind(to: tableView.rx.items(cellIdentifier: String(describing: MovieTableViewCell.self), cellType: MovieTableViewCell.self)) { row, movie, cell in
+            // Populate UI table cell.
             cell.nameLabel.text = movie.name
-            cell.dateLabel.text = DateFormatter.formattedMedium(date: movie.releaseDate)
+            cell.dateLabel.text = movie.releaseDate != nil ? DateFormatter.formattedMedium(date: movie.releaseDate!) : NSLocalizedString("Not available", comment: "Not available")
             cell.overviewLabel.text = movie.overview
             cell.movieImageView.kf.setImage(with: movie.posterUrlFor(size: .width92))
         }.disposed(by: disposeBag)
