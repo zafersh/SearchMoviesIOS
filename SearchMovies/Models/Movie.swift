@@ -31,15 +31,27 @@ struct Movie : Codable {
         case overview
     }
     
-    /// This constructor is required to handle the case when release date is not available.
+    /// This constructor is required to handle cases when some attributes are not available.
     ///
     /// - Parameter decoder: <#decoder description#>
     /// - Throws: <#throws value description#>
     public init(from decoder : Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.decode(String.self, forKey: .name)
-        poster = try container.decode(String.self, forKey: .poster)
+        do {
+            name = try container.decode(String.self, forKey: .name)
+        } catch {
+            name = ""
+        }
+        do {
+            poster = try container.decode(String.self, forKey: .poster)
+        } catch {
+            poster = ""
+        }
+        do {
         overview = try container.decode(String.self, forKey: .overview)
+        } catch {
+            overview = ""
+        }
         do {
             releaseDate = try container.decode(Date.self, forKey: .releaseDate)
         } catch {
