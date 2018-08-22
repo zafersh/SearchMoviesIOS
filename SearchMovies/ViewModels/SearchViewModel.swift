@@ -52,6 +52,9 @@ final class SearchViewModel {
                     self.totalPages = apiResponse.totalPages
                     self.movies.value = apiResponse.movies
                     
+                    // As the query was success, add it to persistent suggestions.
+                    CoreDataStack.insertSuggestion(keyword: keyword)
+                    
                 } catch (let error){
                     print("Error: \(error.localizedDescription)")
                 }
