@@ -99,11 +99,11 @@ class SearchViewController: UIViewController {
         
         // Handle tapping table's row.
         self.tableView.rx.itemSelected.map { indexPath in
-            return self.dataSource[indexPath]
-            }.subscribe(onNext: { model in
+            return (self.dataSource[indexPath], indexPath)
+            }.subscribe(onNext: { model, indexPath in
                 if let _ = model as? Movie {
                     // So far, nothing required to do yet.
-                    
+                    self.tableView.deselectRow(at: indexPath, animated: true)
                 } else if let suggestion = model as? Suggestion {
                     self.viewModel.searchFor(keyword: suggestion.keyword, pageNo: 1, clearCurrent: true)
                     self.searchBar.text = suggestion.keyword
