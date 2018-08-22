@@ -58,6 +58,10 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Enable table view automatic row height estimation.
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 200
+        
         // Subscribe to search button clicked signal to do search API call.
         self.searchBar.rx.searchButtonClicked.subscribe(onNext: { () in
             // Make sure thay keyword is not empy.
@@ -68,7 +72,7 @@ class SearchViewController: UIViewController {
             }
             // Hide keyboard.
             self.view.endEditing(true)
-            self.viewModel.searchFor(keyword: keyword.trimmingCharacters(in: .whitespacesAndNewlines))
+            self.viewModel.searchFor(keyword: keyword.trimmingCharacters(in: .whitespacesAndNewlines), pageNo: 1, clearCurrent: true)
         }).disposed(by: disposeBag)
         
         // Subscribe to search bar begin editing to show persistent suggestions.
@@ -85,6 +89,14 @@ class SearchViewController: UIViewController {
         // Bind table view to table view model.
         self.viewModel.tableRows.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
         
+        // Load next results page when scroll to bottom.
+        self.tableView.rx.contentOffset.asObservable().subscribe(onNext: { (point) in
+            // If scroll bottom enought near edge of content, load next page.
+            if point.y + self.tableView.frame.size.height + 30 > self.tableView.contentSize.height {
+                self.viewModel.loadNextPageIfAvailable()
+            }
+        }).disposed(by: disposeBag)
+        
         // Handle tapping table's row.
         self.tableView.rx.itemSelected.map { indexPath in
             return self.dataSource[indexPath]
@@ -93,7 +105,7 @@ class SearchViewController: UIViewController {
                     // So far, nothing required to do yet.
                     
                 } else if let suggestion = model as? Suggestion {
-                    self.viewModel.searchFor(keyword: suggestion.keyword)
+                    self.viewModel.searchFor(keyword: suggestion.keyword, pageNo: 1, clearCurrent: true)
                     self.searchBar.text = suggestion.keyword
                     self.view.endEditing(true)
                 }

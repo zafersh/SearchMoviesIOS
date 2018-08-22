@@ -15,7 +15,7 @@ enum APIService {
     static private let apiKey = "2696829a81b1b5827d515ff121700838"
     static let imagesBaseUrl = "http://image.tmdb.org/t/p/"
     
-    case search(keyword : String)
+    case search(keyword : String, pageNo : Int)
 }
 
 // MARK: - TargetType
@@ -49,11 +49,11 @@ extension APIService : TargetType {
     
     public var task: Task {
         switch self {
-        case .search(let keyword):
+        case .search(let keyword, let pageNo):
             return .requestParameters(
                 parameters: [
                     "api_key": APIService.apiKey,
-                    "page": 1,
+                    "page": pageNo,
                     "query": keyword],
                 encoding: URLEncoding.queryString)
         }

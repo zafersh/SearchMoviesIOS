@@ -37,6 +37,12 @@ final class SearchViewModel {
     /// Search view controller will show an alert when error occurs.
     private(set) var error = BehaviorRelay<Error?>(value: nil)
     
+    /// Boolean value indicates if next page is being loaded.
+    private var isLoading = false
+    
+    /// Last search keyword. Used to load more pages.
+    private var lastKeyword : String?
+    
     /// Default constructor for this view model
     ///
     /// - Parameter provider: Provider used to make API calls.
@@ -47,11 +53,14 @@ final class SearchViewModel {
     /// Call search API with specified keyword.
     /// Once response is received and parsed UI will be updated as UI table view is drived by this view model.
     ///
-    /// - Parameter keyword: a string to search for.
-    func searchFor(keyword : String) {
+    /// - Parameters:
+    ///   - keyword: <#keyword description#>
+    ///   - pageNo: <#pageNo description#>
+    ///   - clearCurrent: <#clearCurrent description#>
+    func searchFor(keyword : String, pageNo : Int, clearCurrent : Bool) {
         
-        // As this a search for a new key word, it will always starts with first page.
-        provider.request(APIService.search(keyword: keyword)) { (result) in
+        lastKeyword = keyword
+        provider.request(APIService.search(keyword: keyword, pageNo: pageNo)) { (result) in
             switch result {
             case .success(let response):
                 
@@ -63,7 +72,7 @@ final class SearchViewModel {
                     // Update current page and total pages for pagination.
                     self.pageNo = apiResponse.pageNo
                     self.totalPages = apiResponse.totalPages
-                    self.tableRows.accept([SearchSectionModel(items: apiResponse.movies)])
+                    self.tableRows.accept([SearchSectionModel(items: (clearCurrent ? apiResponse.movies : self.tableRows.value[0].items + apiResponse.movies))])
                     
                     if apiResponse.movies.count > 0 {
                         // As the query was success, add it to persistent suggestions.
@@ -80,9 +89,11 @@ final class SearchViewModel {
                     // So a message of unknown error is better.
                     self.error.accept(Error.unknownError)
                 }
+                self.isLoading = false
                 
             case .failure(let error):
                 
+                self.isLoading = false
                 switch error {
                 case .underlying(_, _):
                     self.error.accept(Error.noInternet)
@@ -94,6 +105,14 @@ final class SearchViewModel {
             }
         }
         
+    }
+    
+    /// Load next page of search results if last page is not loaded yet and there is not active request for the same.
+    func loadNextPageIfAvailable() {
+        if pageNo < totalPages && isLoading == false && lastKeyword != nil {
+            isLoading = true
+            searchFor(keyword: lastKeyword!, pageNo: pageNo + 1, clearCurrent: false)
+        }
     }
     
     /// Hide movies if they are listed, and show persistent suggestions.

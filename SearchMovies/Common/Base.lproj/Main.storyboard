@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Yg-ZA-0aF">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" id="Ts7-Fa-cLk">
@@ -117,8 +117,8 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1Yg-ZA-0aF" secondAttribute="trailing" id="1Kw-IY-yWV"/>
-                            <constraint firstItem="1Yg-ZA-0aF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1Yr-dC-mLj"/>
                             <constraint firstAttribute="bottom" secondItem="1Yg-ZA-0aF" secondAttribute="bottom" id="On4-bO-0s4"/>
+                            <constraint firstItem="1Yg-ZA-0aF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="XAa-Df-bJh"/>
                             <constraint firstItem="1Yg-ZA-0aF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tqP-Zd-OGg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
