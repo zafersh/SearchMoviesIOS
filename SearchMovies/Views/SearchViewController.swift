@@ -65,14 +65,18 @@ class SearchViewController: UIViewController {
         // Subscribe to search button clicked signal to do search API call.
         self.searchBar.rx.searchButtonClicked.subscribe(onNext: { () in
             // Make sure thay keyword is not empy.
-            let keyword = self.searchBar.text ?? ""
+            let keyword = self.searchBar.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             guard keyword.count > 0 else {
-                // TODO: Show error alert.
+                // Show error alert.
+                let alertView = UIAlertController(title: NSLocalizedString("Error", comment: ""), message: Error.invalidKeyword.localizedError(), preferredStyle: .alert)
+                alertView.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
+                })
+                self.present(alertView, animated: true, completion: nil)
                 return
             }
             // Hide keyboard.
             self.view.endEditing(true)
-            self.viewModel.searchFor(keyword: keyword.trimmingCharacters(in: .whitespacesAndNewlines), pageNo: 1, clearCurrent: true)
+            self.viewModel.searchFor(keyword: keyword, pageNo: 1, clearCurrent: true)
         }).disposed(by: disposeBag)
         
         // Subscribe to search bar begin editing to show persistent suggestions.

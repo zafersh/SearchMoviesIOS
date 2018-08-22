@@ -21,6 +21,7 @@ enum Error  {
     case noInternet
     case movieNotFound
     case unknownError
+    case invalidKeyword
     
     /// Provided localized description of the error.
     ///
@@ -33,6 +34,8 @@ enum Error  {
             return NSLocalizedString("Unfortunately, we find nothing for you.", comment: "")
         case .unknownError:
             return NSLocalizedString("Oops... something wrong happened", comment: "")
+        case .invalidKeyword:
+            return NSLocalizedString("Please enter a valid keyword", comment: "")
         }
     }
 }
