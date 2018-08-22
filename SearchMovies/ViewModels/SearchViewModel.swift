@@ -80,16 +80,17 @@ final class SearchViewModel {
     }
     
     /// Hide movies if they are listed, and show persistent suggestions.
-    func showSuggestions() {
+    func showSuggestions(keyword : String) {
+        // Persistent store is accessed only when search bar get focus.
+        // Retrieved array are filtered while typing.
         self.suggestions = CoreDataStack.getSuggestion(filter: "", filterType: .contains)
-        self.tableRows.accept([SearchSectionModel(items: self.suggestions)])
+        filterSuggestions(keyword: keyword)
     }
     
     /// Load filtered persistent suggestions using specified keyword.
     ///
     /// - Parameter keyword: a string to be used to filter suggestions.
     func filterSuggestions(keyword : String) {
-        print("filterSuggestions: \(keyword)")
         let filtered = keyword.isEmpty ? self.suggestions : self.suggestions.filter( { $0.keyword.contains(keyword) })
         self.tableRows.accept([SearchSectionModel(items: filtered)])
     }

@@ -73,7 +73,7 @@ class SearchViewController: UIViewController {
         
         // Subscribe to search bar begin editing to show persistent suggestions.
         self.searchBar.rx.textDidBeginEditing.subscribe(onNext: { () in
-            self.viewModel.showSuggestions()
+            self.viewModel.showSuggestions(keyword: self.searchBar.text!)
         }).disposed(by: disposeBag)
         
         // Subscribe to changes in search keyword to filter suggestions.
@@ -84,6 +84,20 @@ class SearchViewController: UIViewController {
         
         // Bind table view to table view model.
         self.viewModel.tableRows.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
+        
+        // Handle tapping table's row.
+        self.tableView.rx.itemSelected.map { indexPath in
+            return self.dataSource[indexPath]
+            }.subscribe(onNext: { model in
+                if let _ = model as? Movie {
+                    // So far, nothing required to do yet.
+                    
+                } else if let suggestion = model as? Suggestion {
+                    self.viewModel.searchFor(keyword: suggestion.keyword)
+                    self.searchBar.text = suggestion.keyword
+                    self.view.endEditing(true)
+                }
+        }).disposed(by: disposeBag)
         
     }
 

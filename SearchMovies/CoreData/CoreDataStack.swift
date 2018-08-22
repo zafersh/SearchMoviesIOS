@@ -167,7 +167,8 @@ class CoreDataStack {
         } catch (let error) {
             print("CoreData error: \(error), error description: \(error.localizedDescription)")
         }
-        return suggestions
+        // Reverse suggestions to show latest at top.
+        return suggestions.reversed()
     }
     
 }
