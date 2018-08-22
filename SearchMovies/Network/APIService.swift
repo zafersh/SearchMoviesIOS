@@ -10,6 +10,7 @@ import Foundation
 import Moya
 
 // Used APIServices
+// If we need to domain, changes are required only in this file.
 enum APIService {
     
     static private let apiKey = "2696829a81b1b5827d515ff121700838"

@@ -65,6 +65,7 @@ final class SearchViewModel {
             case .success(let response):
                 
                 do {
+                    // If we need to change to xml-based api, we can simply use EVReflection/MoyaRxSwiftXML library.
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Short)
                     let apiResponse = try decoder.decode(APIResponse.self, from: response.data)

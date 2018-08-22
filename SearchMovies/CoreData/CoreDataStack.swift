@@ -20,6 +20,7 @@ enum FilterType {
 }
 
 /// This class is to support CoreData for iOS < 10, as NSPersistentContainer requires iOS
+/// If we need to use a different persistent store we need to update this class only.
 class CoreDataStack {
     
     /// Returns URL for application document directory.
