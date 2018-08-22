@@ -25,6 +25,10 @@
 		E9E3D804212B937E0063A563 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D803212B937E0063A563 /* APIService.swift */; };
 		E9E3D806212BCC460063A563 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D805212BCC460063A563 /* APIResponse.swift */; };
 		E9E3D809212C69EA0063A563 /* DateFormatter+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D808212C69EA0063A563 /* DateFormatter+Additions.swift */; };
+		E9E3D80B212D87B70063A563 /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D80A212D87B70063A563 /* CellModel.swift */; };
+		E9E3D80D212D88410063A563 /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D80C212D88410063A563 /* Suggestion.swift */; };
+		E9E3D80F212DA1400063A563 /* SuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D80E212DA1400063A563 /* SuggestionTableViewCell.swift */; };
+		E9E3D811212DA3680063A563 /* SearchSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3D810212DA3680063A563 /* SearchSectionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +78,10 @@
 		E9E3D803212B937E0063A563 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		E9E3D805212BCC460063A563 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		E9E3D808212C69EA0063A563 /* DateFormatter+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Additions.swift"; sourceTree = "<group>"; };
+		E9E3D80A212D87B70063A563 /* CellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
+		E9E3D80C212D88410063A563 /* Suggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
+		E9E3D80E212DA1400063A563 /* SuggestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewCell.swift; sourceTree = "<group>"; };
+		E9E3D810212DA3680063A563 /* SearchSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSectionModel.swift; sourceTree = "<group>"; };
 		F70DF565358C97599C6F42D5 /* Pods_SearchMoviesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SearchMoviesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -200,6 +208,9 @@
 			children = (
 				E9E3D800212B8EC50063A563 /* Movie.swift */,
 				E9E3D805212BCC460063A563 /* APIResponse.swift */,
+				E9E3D80A212D87B70063A563 /* CellModel.swift */,
+				E9E3D80C212D88410063A563 /* Suggestion.swift */,
+				E9E3D810212DA3680063A563 /* SearchSectionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -217,6 +228,7 @@
 			children = (
 				E93044EE212B723C00CD31EF /* SearchViewController.swift */,
 				E9E3D7FE212B8D180063A563 /* MovieTableViewCell.swift */,
+				E9E3D80E212DA1400063A563 /* SuggestionTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -420,19 +432,23 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SearchMovies/Pods-SearchMovies-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9E3D80B212D87B70063A563 /* CellModel.swift in Sources */,
 				E9E3D809212C69EA0063A563 /* DateFormatter+Additions.swift in Sources */,
 				E9E3D801212B8EC50063A563 /* Movie.swift in Sources */,
 				E93044EF212B723C00CD31EF /* SearchViewController.swift in Sources */,
@@ -473,8 +490,11 @@
 				E93044EB212B704500CD31EF /* AppDelegate.swift in Sources */,
 				E93044AC212B660500CD31EF /* SearchMovies.xcdatamodeld in Sources */,
 				E9E3D804212B937E0063A563 /* APIService.swift in Sources */,
+				E9E3D811212DA3680063A563 /* SearchSectionModel.swift in Sources */,
 				E93044F2212B733A00CD31EF /* CoreDataStack.swift in Sources */,
 				E9E3D806212BCC460063A563 /* APIResponse.swift in Sources */,
+				E9E3D80D212D88410063A563 /* Suggestion.swift in Sources */,
+				E9E3D80F212DA1400063A563 /* SuggestionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

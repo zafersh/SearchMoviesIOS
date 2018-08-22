@@ -10,6 +10,7 @@ import UIKit
 import Moya
 import RxSwift
 import RxCocoa
+import RxDataSources
 import Kingfisher
 
 /// UIViewController for search view which is the root view for this app.
@@ -26,7 +27,31 @@ class SearchViewController: UIViewController {
     /// Associated view model.
     let viewModel = SearchViewModel(provider: MoyaProvider())
     
+    /// Dispose bag for all used observables subscriptions.
     private let disposeBag = DisposeBag()
+    
+    /// Table view data source to provide Movie or Suggestion cell.
+    let dataSource = RxTableViewSectionedReloadDataSource<SearchSectionModel>(
+        configureCell: { (_, tv, indexPath, model) in
+            
+            // Populate UI table cell.
+            var cell = tv.dequeueReusableCell(withIdentifier: String(describing: SuggestionTableViewCell.self))!
+            if let movie = model as? Movie {
+                let movieCell = tv.dequeueReusableCell(withIdentifier: String(describing: MovieTableViewCell.self))! as! MovieTableViewCell
+                movieCell.nameLabel.text = movie.name
+                movieCell.dateLabel.text = movie.releaseDate != nil ? DateFormatter.formattedMedium(date: movie.releaseDate!) : NSLocalizedString("Not available", comment: "Not available")
+                movieCell.overviewLabel.text = movie.overview
+                movieCell.movieImageView.kf.setImage(with: movie.posterUrlFor(size: .width92))
+                cell = movieCell
+            } else if let suggestion = model as? Suggestion {
+                let suggestionCell = tv.dequeueReusableCell(withIdentifier: String(describing: SuggestionTableViewCell.self))!
+                suggestionCell.textLabel?.text = suggestion.keyword
+                cell = suggestionCell
+            }
+            return cell
+            
+    }
+    )
     
     // MARK: - UIViewController
 
@@ -48,14 +73,7 @@ class SearchViewController: UIViewController {
         
         // Subscribe to search bar begin editing to show persistent suggestions.
         self.searchBar.rx.textDidBeginEditing.subscribe(onNext: { () in
-            // TODO: Show suggestions.
-            print("+++ Show suggestions")
-        }).disposed(by: disposeBag)
-        
-        // Subscribe to search bar end editting to hide persistent suggestions.
-        self.searchBar.rx.textDidEndEditing.subscribe(onNext: { () in
-            // TODO: Hide suggestions.
-            print("--- Hide suggestions")
+            self.viewModel.showSuggestions()
         }).disposed(by: disposeBag)
         
         // Subscribe to changes in search keyword to filter suggestions.
@@ -64,13 +82,8 @@ class SearchViewController: UIViewController {
             self.viewModel.filterSuggestions(keyword: keyword)
         }).disposed(by: disposeBag)
         
-        self.viewModel.movies.asObservable().bind(to: tableView.rx.items(cellIdentifier: String(describing: MovieTableViewCell.self), cellType: MovieTableViewCell.self)) { row, movie, cell in
-            // Populate UI table cell.
-            cell.nameLabel.text = movie.name
-            cell.dateLabel.text = movie.releaseDate != nil ? DateFormatter.formattedMedium(date: movie.releaseDate!) : NSLocalizedString("Not available", comment: "Not available")
-            cell.overviewLabel.text = movie.overview
-            cell.movieImageView.kf.setImage(with: movie.posterUrlFor(size: .width92))
-        }.disposed(by: disposeBag)
+        // Bind table view to table view model.
+        self.viewModel.tableRows.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
         
     }
 
@@ -78,7 +91,6 @@ class SearchViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 

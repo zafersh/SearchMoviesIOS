@@ -10,6 +10,15 @@ import Foundation
 
 import CoreData
 
+/// Type for filtering
+///
+/// - match: <#match description#>
+/// - contains: <#contains description#>
+enum FilterType {
+    case match
+    case contains
+}
+
 /// This class is to support CoreData for iOS < 10, as NSPersistentContainer requires iOS
 class CoreDataStack {
     
@@ -97,7 +106,7 @@ class CoreDataStack {
         CoreDataStack.deleteSuggestion(keyword: keyword)
         
         // Delete oldes suggestion if suggestions already reach 10 entries limit.
-        if CoreDataStack.getSuggestion(filter: "").count == 10 {
+        if CoreDataStack.getSuggestion(filter: "", filterType: .contains).count == 10 {
             CoreDataStack.deleteOldestSuggestion()
         }
         
@@ -127,7 +136,7 @@ class CoreDataStack {
     /// - Parameter keyword: <#keyword description#>
     static func deleteSuggestion(keyword : String) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: MovieQuery.self))
-        request.predicate = NSPredicate(format: "keyword = %@", keyword)
+        request.predicate = NSPredicate(format: "keyword == %@", keyword)
         do {
             let result = try CoreDataStack.managedObjectContext.fetch(request)
             for entry in result as! [NSManagedObject] {
@@ -142,16 +151,18 @@ class CoreDataStack {
     /// Get all suggestion filtered to provided keyword.
     ///
     /// - Parameter filter: <#filter description#>
-    static func getSuggestion(filter : String) -> [String] {
+    static func getSuggestion(filter : String, filterType : FilterType) -> [Suggestion] {
         // Retrieve all suggestion from persistent store.
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: MovieQuery.self))
-        request.predicate = NSPredicate(format: "keyword = %@", filter)
+        if filter.isEmpty == false {
+            request.predicate = NSPredicate(format: filterType == .match ? "keyword == %@" : "keyword contains[c] %@", filter)
+        }
         request.returnsObjectsAsFaults = false
-        var suggestions = [String]()
+        var suggestions = [Suggestion]()
         do {
             let result = try CoreDataStack.managedObjectContext.fetch(request)
             for entry in result as! [NSManagedObject] {
-                suggestions.append(entry.value(forKey: "keyword") as! String)
+                suggestions.append(Suggestion(keyword: entry.value(forKey: "keyword") as! String))
             }
         } catch (let error) {
             print("CoreData error: \(error), error description: \(error.localizedDescription)")

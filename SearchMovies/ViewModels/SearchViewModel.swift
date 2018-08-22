@@ -9,6 +9,8 @@
 import Foundation
 import Moya
 import RxSwift
+import RxCocoa
+import RxDataSources
 
 /// View model for search view.
 final class SearchViewModel {
@@ -23,7 +25,13 @@ final class SearchViewModel {
     private var totalPages = 0
     
     /// Movies retrieved from search API.
-    private(set) var movies = Variable<[Movie]>([])
+    private var movies = [Movie]()
+    
+    /// Suggestions retrieved from persistent store.
+    private var suggestions = [Suggestion]()
+    
+    /// Models to be displayed at table view.
+    private(set) var tableRows = BehaviorRelay<[SearchSectionModel]>(value: [SearchSectionModel]())
     
     /// Default constructor for this view model
     ///
@@ -37,6 +45,7 @@ final class SearchViewModel {
     ///
     /// - Parameter keyword: a string to search for.
     func searchFor(keyword : String) {
+        
         // As this a search for a new key word, it will always starts with first page.
         provider.request(APIService.search(keyword: keyword)) { (result) in
             switch result {
@@ -50,10 +59,14 @@ final class SearchViewModel {
                     // Update current page and total pages for pagination.
                     self.pageNo = apiResponse.pageNo
                     self.totalPages = apiResponse.totalPages
-                    self.movies.value = apiResponse.movies
+                    self.tableRows.accept([SearchSectionModel(items: apiResponse.movies)])
                     
-                    // As the query was success, add it to persistent suggestions.
-                    CoreDataStack.insertSuggestion(keyword: keyword)
+                    if apiResponse.movies.count > 0 {
+                        // As the query was success, add it to persistent suggestions.
+                        CoreDataStack.insertSuggestion(keyword: keyword.trimmingCharacters(in: .whitespacesAndNewlines))
+                    } else {
+                        // TODO: Show error in case no results.
+                    }
                     
                 } catch (let error){
                     print("Error: \(error.localizedDescription)")
@@ -66,11 +79,19 @@ final class SearchViewModel {
         
     }
     
+    /// Hide movies if they are listed, and show persistent suggestions.
+    func showSuggestions() {
+        self.suggestions = CoreDataStack.getSuggestion(filter: "", filterType: .contains)
+        self.tableRows.accept([SearchSectionModel(items: self.suggestions)])
+    }
+    
     /// Load filtered persistent suggestions using specified keyword.
     ///
     /// - Parameter keyword: a string to be used to filter suggestions.
     func filterSuggestions(keyword : String) {
         print("filterSuggestions: \(keyword)")
+        let filtered = keyword.isEmpty ? self.suggestions : self.suggestions.filter( { $0.keyword.contains(keyword) })
+        self.tableRows.accept([SearchSectionModel(items: filtered)])
     }
     
 }

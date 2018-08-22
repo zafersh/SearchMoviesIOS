@@ -9,7 +9,7 @@
 import Foundation
 
 /// Model for Movie.
-struct Movie : Codable {
+struct Movie : Codable, CellModel {
     
     /// Relative URL string to movie's poster.
     let poster : String?
